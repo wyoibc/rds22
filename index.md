@@ -18,9 +18,9 @@ date: June 22, 2022
 
 - [July 13: Repository Specific R Packaging](rpack2/repodriven.html)
 
-- [**July 20: Markdown & RMarkdown**](rmd/rmd.html)
+- [July 20: Markdown & RMarkdown](rmd/rmd.html)
 
-- [July 27: Bookdown & Blogdown]()
+- [**July 27: Bookdown & Blogdown**](bookdown/bookdown.html)
 
 - [August 3: Popular R Packages]()
 

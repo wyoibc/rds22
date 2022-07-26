@@ -23,6 +23,10 @@ date: July 20, 2022
 
 - [3. Further Reading](#further-reading)
 
+- [4. Creating a RMarkdown Document](#creating-a-rmarkdown-document)
+
+
+
 
 <br><br><br><br><br>
 <br><br><br><br><br>
@@ -106,3 +110,130 @@ If you run ``git pull`` in this repository's clone directory on your computer, y
 
 - [RMarkdown Tutorial by Karl Broman](https://kbroman.org/knitr_knutshell/pages/Rmarkdown.html)
 
+
+
+<br><br>
+
+
+## 4. Creating a RMarkdown Document
+
+If you were not in attendance for this session, follow the rest of this guide to create your document:
+
+<br>
+
+### 4.1 Create Document Preamble
+
+
+---
+title: FSTs in hybrid poplars
+author: Vikram Chhatre
+date: 07/20/2022
+output: html\_document
+---
+
+
+<br>
+
+
+### 4.2 Create a Fst Density Plot
+
+**Note:** Remember to enclose all R code between backticks in the following manner:
+
+``
+```{r}
+plot()
+```
+``
+
+
+- Import libraries and data into R
+
+```{r}
+library(ggplot2)
+library(reshape2)
+
+sig.fst <- read.table("sig.fst", header=F)
+neu.fst <- read.table("neu.fst", header=F)
+
+``` 
+
+- Format and merge data
+
+```{r}
+sig <- data.frame(x=sig.fst$V2, label=rep("Significant (1764 SNPs)", 1764))
+
+neu <- data.frame(x=neu.fst$V2, label=rep("Neutral (1912 SNPs)", 1912))
+
+fst <- rbind(sig, neu)
+
+```
+
+- Make density plot
+
+
+```{r}
+ggplot(fst, aes(x, y=..density.., fill=label)) + xlim(0,1) +
+	geom_density(color="black", alpha=0.7) +
+	scale_fill_manual(values=c("orange", "lightgray")) +
+	labs(x=expression(paste("Admixture Zone"~italic(F)[ST])), y="Density (loci)",
+		title=expression(paste("(b) "~italic(F)[ST]~" in "~italic("P. angustifolia")~" derived alleles"))) +
+	theme(legend.position=c(0.8,0.9), legend.title=element_blank())
+
+```
+<br>
+
+### 4.3 Reproducibility of results
+
+- Read the data file
+
+```{r}
+pct <- read.table("pval_counts.txt", header=T)
+```
+
+
+- Assign colors to numbers
+
+```{r}
+pct$fill <- ifelse(pct$counts_pvalzero == 0, "lightgray",
+		ifelse(pct$counts_pvalzero == 100, "orange", "black"))
+```
+
+
+- Draw a histogram to show reproducibility
+
+```{r}
+ggplot(pct, aes(counts_pvalzero, fill=fill)) +
+	geom_histogram(binwidth=1) +
+	scale_fill_manual(values=c("black", "gray", "orange"),
+		labels=c("Variabily Sig. (3847 SNPs)", "Never Sig. (1912 SNPs)", "Always Sig. (1764 SNPs)")) +
+		labs(x="Num. of Introgress Replicates", y="Significantly introgressed loci",
+			title="(a) Reproducibility of Introgress results") +
+	theme(legend.position=c(0.8,0.9), legend.title=element_blank(), legend.text=element_text(size=8))
+
+```
+
+
+<br><br>
+
+### 4.4 Compile the Document
+
+- If you are working within RStudio, simply click the ``knit`` button.  This should generate an HTML file that RStudio will open up in a browser instance.
+
+- If you are working in a R terminal, follow these prompts:
+
+
+```r
+
+library(RMarkdown)
+
+rmarkdown::render("fst.Rmd", "html_document")
+
+```
+
+
+
+<br><br>
+
+### 4.5 Example Output
+
+- If your document was compiled correctly, you should see output like [this file](data/fst.html). 
