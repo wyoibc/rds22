@@ -20,7 +20,7 @@ date: June 22, 2022
 
 - [July 20: Markdown & RMarkdown](rmd/rmd.html)
 
-- [**July 27: Bookdown & Blogdown**](bookdown/bookdown.html)
+- [**July 27: Bookdown R Package**](bookdown/bookdown.html)
 
 - [August 3: Popular R Packages]()
 

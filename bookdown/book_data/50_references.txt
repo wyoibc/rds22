@@ -1,0 +1,12 @@
+
+Felsenstein, Joseph. 2004. Inferring Phylogenies. Vol. 2. Sinauer Associates Sunderland.
+
+———. 2012. “A Comparative Method for Both Discrete and Continuous Characters Using the Threshold Model.” The American Naturalist 179 (2): 145–56. https://doi.org/10.1086/663681.
+
+Huelsenbeck, John P., Rasmus Nielsen, Jonathan P. Bollback, and Ted Schultz. 2003. “Stochastic Mapping of Morphological Characters.” Systematic Biology 52 (2): 131–58. https://doi.org/10.1080/10635150390192780.
+
+O’Meara, B. C. 2012. Evolutionary Inferences from Phylogenies: A Review of Methods. Vol. 43. https://doi.org/10.1146/annurev-ecolsys-110411-160331.
+
+R Core Team. 2021. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.
+
+Steel, Mike, and David Penny. 2000. “Parsimony, Likelihood, and the Role of Models in Molecular Phylogenetics.” Molecular Biology and Evolution 17 (6): 839–50. https://doi.org/10.1093/oxfordjournals.molbev.a026364.

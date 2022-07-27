@@ -1,0 +1,64 @@
+Objectives
+By the end of this chapter, you will:
+
+Understand the importance of dealing with correlations in an evolutionary manner
+Know methods for looking at correlations of continuous and discrete traits
+Be able to point to reasons to be concerned.
+
+
+--------------------
+
+
+Brownian motion
+First, let’s get a tree:
+
+library(rotl)
+library(ape)
+phy <- get_study_tree("ot_485", "tree1")
+plot(phy, cex=0.5)
+axisPhylo(backward=TRUE)
+
+
+Note that this tree is a chronogram.
+
+Let’s simulate data on this tree. But what model to use? For now, let’s assume we are looking at continuous traits, things like body size. Over evolutionary time, these probably undergo a series of changes that then get added up. A species has an average mass of 15 kg, then it goes to 15.1 kg, then 14.8 kg, and so forth. But how could those changes be distributed?
+
+Start with a uniform distribution. Take a starting value of 0, then pick a number from -1 to 1 to add to it (in other words, runif(n=1, min=-1, max=1)). There are efficient ways to do this for many generations, but let’s do the obvious way: a simple for loop. Do it for 100 generations.
+
+
+ngen <- 100
+positions <- c(0, rep(NA,ngen))
+for (i in sequence(ngen)) {
+  positions[i+1] <- positions[i] + runif(1,-1,1)
+}
+plot(x=positions, y=sequence(length(positions)), xlab="trait value", ylab="generation", bty="n", type="l")
+
+
+
+
+
+We can repeat this simulation many times and see what the pattern looks like:
+
+
+ngen <- 100
+nsims <- 500
+final.positions <- rep(NA, nsims)
+# make a plot to hold our lines
+plot(x=c(-1,1)*ngen, y=c(1, 1+ngen), xlab="trait value", ylab="generation", bty="n", type="n")
+for (sim.index in sequence(nsims)) {
+  positions <- c(0, rep(NA,ngen))
+  for (i in sequence(ngen)) {
+    positions[i+1] <- positions[i] + runif(1,-1,1)
+  }
+  lines(positions, sequence(length(positions)), col=rgb(0,0,0,0.1))
+  final.positions[sim.index] <- positions[length(positions)]
+}
+
+
+Well, that may seem odd: we’re adding a bunch of uniform random values between -1 and 1 (so, a flat distribution) and we get something that definitely has more lines ending up in the middle than further out. Look just at the distribution of final points:
+
+
+plot(density(final.positions), col="black", bty="n")
+
+
+

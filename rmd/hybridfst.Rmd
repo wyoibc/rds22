@@ -39,6 +39,8 @@ ggplot(fst, aes(x, y=..density.., fill=label)) + xlim(0,1) +
   labs(x=expression(paste("Admixture Zone"~italic(F)[ST])), y="Density (loci)",
       title=expression(paste("(b) "~italic(F)[ST]~" in "~italic("P. angustifolia")~" derived alleles"))) +
   theme(legend.position=c(0.8,0.9), legend.title=element_blank())
+
+ggsave("
 ```
 
 
