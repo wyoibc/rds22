@@ -1,0 +1,33 @@
+LEARNING OBJECTIVES 
+
+Readers of this book will be able to:
+
+Approach a study of a group of organisms by developing meaningful questions
+Identify the appropriate methods to answer these questions
+Where methods do not yet exist, be able to work on potential new methods
+Understand limtations of methods and how to evaluate these limits
+Draw sensible biological conclusions
+
+
+------------------------------------------------
+
+WHAT YOU WILL NEED
+
+R
+
+Many methods are now implemented in R (R Core Team 2021): the phylogenetics task view has a brief overview. You can also install the relevant packages that are on CRAN and R-Forge using the task view itself:
+
+install.packages("ctv")
+library(ctv)
+install.views("Phylogenetics")
+Note that this will not install packages that are on GitHub or authors’ individual websites. The devtools package can be useful for installing packages directly from GitHub.
+
+
+Other
+RevBayes, BEAST, RAxML, and much other key software implement important methods in phylogenetics but are not in R. Readers will need to install these and many more, but fortunately the authors of much of this software have excellent tutorials already.
+
+
+References
+
+R Core Team. 2021. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.
+

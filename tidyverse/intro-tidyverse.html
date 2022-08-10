@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-08-03" />
+  <title>Tidyverse Packages for Data Science</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="avenir-white.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tidyverse Packages for Data Science</h1>
+<p class="date">August 3, 2022</p>
+</header>
+<h2 id="table-of-contents">Table of Contents</h2>
+<p><a href="#how-to-install-tidyverse">1. How to Install Tidyverse?</a></p>
+<p><a href="#reading-data-with-readr">2. Reading Data with <code>readr</code></a></p>
+<p><a href="#exploring-data-with-dplyr">3. Exploring Data with <code>dplyr</code></a></p>
+<p><a href="#exploratory-visualization-with-ggplot">4. Exploratory Visualization with <code>ggplot</code></a></p>
+<p><br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br></p>
+<h2 id="how-to-install-tidyverse">1. How to Install Tidyverse?</h2>
+<p>You can either follow the usual method of installing stable packages:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<p>Or you can get the developmental version from github:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">library</span>(devtools)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;hadley/tidyverse&quot;</span>)</span></code></pre></div>
+<p>Tidyverse contains multiple packages and you can load them all at the same time:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>── Attaching packages ────────────────────────────── tidyverse <span class="dv">1</span>.<span class="dv">3</span>.<span class="fl">1.9000</span> ──</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>✔ ggplot2 <span class="dv">3</span>.<span class="fl">3.6</span>     ✔ purrr   <span class="dv">0</span>.<span class="fl">3.4</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>✔ tibble  <span class="dv">3</span>.<span class="fl">1.7</span>     ✔ dplyr   <span class="dv">1</span>.<span class="fl">0.9</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>✔ tidyr   <span class="dv">1</span>.<span class="fl">2.0</span>     ✔ stringr <span class="dv">1</span>.<span class="fl">4.0</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>✔ readr   <span class="dv">2</span>.<span class="fl">1.2</span>     ✔ forcats <span class="dv">0</span>.<span class="fl">5.1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>── Conflicts ─────────────────────────────────────── <span class="kw">tidyverse_conflicts</span>() ──</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>✖ dplyr<span class="op">::</span><span class="kw">filter</span>() masks stats<span class="op">::</span><span class="kw">filter</span>()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>✖ dplyr<span class="op">::</span><span class="kw">lag</span>()    masks stats<span class="op">::</span><span class="kw">lag</span>()</span></code></pre></div>
+<p>You will notice a couple of conflicts above. R is telling us that the <code>filter()</code> and <code>lag()</code> functions from the <code>dplyr</code> packages are named identically to functions we already have on our installation of the <code>stats</code> package. It is also telling us that those <code>stats</code> library functions are now fully masked by <code>dplyr</code>.</p>
+<p>This of course does not mean that those functions are not available to you any longer. In fact, you can still call them using the following syntax:</p>
+<p><code>library::function()</code></p>
+<p>For example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>stats<span class="op">::</span><span class="kw">lag</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>stats<span class="op">::</span><span class="kw">filter</span>()</span></code></pre></div>
+<p>Now, let’s delve into studying some of the packages from Tidyverse.</p>
+<p><br><br></p>
+<h2 id="reading-data-with-readr">2. Reading Data with <code>readr</code></h2>
+<p>As the name suggests, this package contains functions for reading data into R. You might ask, what’s so fancy about that? Doesn’t <code>base-r</code> already contain functions to do those tasks? And you’d be right. But functions in <code>readr</code> provide significant improvement over their <code>base-r</code> counterparts.</p>
+<h2 id="functions-in-readr">2.1 Functions in <code>readr</code></h2>
+<p>There are six functions available in this package to read different file types:</p>
+<ul>
+<li><code>read_csv()</code>: comma-separated values (CSV) files</li>
+<li><code>read_tsv()</code>: tab-separated values (TSV) files</li>
+<li><code>read_delim()</code>: delimited files (CSV and TSV are important special cases)</li>
+<li><code>read_fwf()</code>: fixed-width files</li>
+<li><code>read_table()</code>: whitespace-separated files</li>
+<li><code>read_log()</code>: web log files</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>chickens &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;chickens.csv&quot;</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>Rows<span class="op">:</span><span class="st"> </span><span class="dv">5</span> Columns<span class="op">:</span><span class="st"> </span><span class="dv">4</span>                                                                                                 </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>── Column specification ──────────────────</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>Delimiter<span class="op">:</span><span class="st"> &quot;,&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="kw">chr</span> (<span class="dv">3</span>)<span class="op">:</span><span class="st"> </span>chicken, sex, motto</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">dbl</span> (<span class="dv">1</span>)<span class="op">:</span><span class="st"> </span>eggs_laid</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">spec</span>(chickens)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">spec</span>(chickens)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">cols</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span class="dt">chicken =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  <span class="dt">sex =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>  <span class="dt">eggs_laid =</span> <span class="kw">col_double</span>(),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>  <span class="dt">motto =</span> <span class="kw">col_character</span>()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>)</span></code></pre></div>
+<ul>
+<li>The <code>spec</code> function displays the type of data present in each column. You can also get the same type of information by simply printing the data frame to screen:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>chickens</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="co"># A tibble: 5 × 4</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  chicken                 sex     eggs_laid motto                               </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                   </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                               </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="dv">1</span> Foghorn Leghorn         rooster         <span class="dv">0</span> That<span class="st">&#39;s a joke, ah say, that&#39;</span>s a jok…</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="dv">2</span> Chicken Little          hen             <span class="dv">3</span> The sky is falling<span class="op">!</span><span class="st">                 </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="dv">3</span> Ginger                  hen            <span class="dv">12</span> Listen. We<span class="st">&#39;ll either die free chick…</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="st">4 Camilla the Chicken     hen             7 Bawk, buck, ba-gawk.                </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="st">5 Ernie The Giant Chicken rooster         0 Put Captain Solo in the cargo hold. </span></span></code></pre></div>
+<ul>
+<li><p>Under each column header, you will see an acronym for the type of data in that column: <code>chr</code> for character and <code>dbl</code> for numerical data.</p></li>
+<li><p>If this is your first time working with tidyverse, you will notice differences in how these packages display data frames in contrast with base-r. If you call the name of the data frame, base-r will spit out the first 10000 (or less if the file is smaller) lines of the file to the screen at once. Tidyverse does things differently. By default, it will show the first six rows and first few columns of data as shown above. This particular style of display is called a <code>tibble</code>, which is a package in itself.</p></li>
+<li><p>Let’s try another example. We will read a file from New York Times’ COVID-19 github repository. We don’t need to download the file, we will read it directly from a url. This file is ~100MB in size and contains COVID-19 cases and deaths data for all US counties.</p></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>ct &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&quot;</span>)</span></code></pre></div>
+<ul>
+<li>If you typed the URL correctly, you should see progress like this:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>Rows<span class="op">:</span><span class="st"> </span><span class="dv">2502832</span> Columns<span class="op">:</span><span class="st"> </span><span class="dv">6</span>                                                      </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>── Column specification ─────────────────────────────────────────────</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>Delimiter<span class="op">:</span><span class="st"> &quot;,&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="kw">chr</span>  (<span class="dv">3</span>)<span class="op">:</span><span class="st"> </span>county, state, fips</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="kw">dbl</span>  (<span class="dv">2</span>)<span class="op">:</span><span class="st"> </span>cases, deaths</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="kw">date</span> (<span class="dv">1</span>)<span class="op">:</span><span class="st"> </span>date</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>ℹ Use <span class="st">`</span><span class="dt">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data.</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>ℹ Specify the column types or set <span class="st">`</span><span class="dt">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">spec</span>(ct)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a><span class="kw">cols</span>(</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>  <span class="dt">date =</span> <span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>  <span class="dt">county =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>  <span class="dt">state =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>  <span class="dt">fips =</span> <span class="kw">col_character</span>(),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>  <span class="dt">cases =</span> <span class="kw">col_double</span>(),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>  <span class="dt">deaths =</span> <span class="kw">col_double</span>()</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>)</span></code></pre></div>
+<ul>
+<li>Hopefully your internet speed is good because <code>readr</code> will import that file very fast. Let’s check what the tibble view looks like on this file:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>ct</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co"># A tibble: 2,502,832 × 6</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>   date       county      state      fips  cases deaths</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-01-21</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-01-22</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-01-23</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-01-24</span> Cook        Illinois   <span class="dv">17031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-01-24</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-01-25</span> Orange      California <span class="dv">06059</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-01-25</span> Cook        Illinois   <span class="dv">17031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-01-25</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-01-26</span> Maricopa    Arizona    <span class="dv">04013</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-01-26</span> Los Angeles California <span class="dv">06037</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="co"># … with 2,502,822 more rows</span></span></code></pre></div>
+<p><br><br></p>
+<h2 id="exploring-data-with-dplyr">3. Exploring Data with <code>dplyr</code></h2>
+<p><br></p>
+<h3 id="using-pipes">3.1 Using Pipes</h3>
+<ul>
+<li><p>If you are familiar with the pipe function in Unix (<code>|</code>), the R pipe works similarly (albeit it uses a different symbol). The goal is to use output from one command and pass it onto another function. Just like the Unix pipe, the R pipe can also be nested as many times as you want. We will see some examples below.</p></li>
+<li><p>What if you wanted to print 15 rows of data from the above tibble to the screen?</p></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">15</span>, <span class="dt">width=</span><span class="ot">Inf</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="co"># A tibble: 2,502,832 × 6</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>   date       county      state      fips  cases deaths</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-01-21</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-01-22</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-01-23</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-01-24</span> Cook        Illinois   <span class="dv">17031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-01-24</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-01-25</span> Orange      California <span class="dv">06059</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-01-25</span> Cook        Illinois   <span class="dv">17031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-01-25</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-01-26</span> Maricopa    Arizona    <span class="dv">04013</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-01-26</span> Los Angeles California <span class="dv">06037</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a><span class="dv">11</span> <span class="dv">2020-01-26</span> Orange      California <span class="dv">06059</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a><span class="dv">12</span> <span class="dv">2020-01-26</span> Cook        Illinois   <span class="dv">17031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a><span class="dv">13</span> <span class="dv">2020-01-26</span> Snohomish   Washington <span class="dv">53061</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a><span class="dv">14</span> <span class="dv">2020-01-27</span> Maricopa    Arizona    <span class="dv">04013</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a><span class="dv">15</span> <span class="dv">2020-01-27</span> Los Angeles California <span class="dv">06037</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a><span class="co"># … with 2,502,817 more rows</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true"></a> </span></code></pre></div>
+<ul>
+<li>In the example above, we used <code>Inf</code> option for the width of the tibble. Because this tibble is small, it fits comfortable on our screen. However, if your tibble was much wider than this, you could restrict the width to match that of your display. For example, try the following three commands and try to notice the differences between the three outputs:</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">15</span>, <span class="dt">width=</span><span class="dv">50</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">15</span>, <span class="dt">width=</span><span class="dv">25</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">15</span>, <span class="dt">width=</span><span class="dv">20</span>)</span></code></pre></div>
+<ul>
+<li><p>What was different about the outputs?</p></li>
+<li><p>If you wanted to find out how many different states have been represented in this data set:</p></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(state)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="co"># A tibble: 56 × 2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>   state                    n</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                </span><span class="er">&lt;</span>int<span class="op">&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> Alabama              <span class="dv">52312</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a> <span class="dv">2</span> Alaska               <span class="dv">20568</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a> <span class="dv">3</span> American Samoa         <span class="dv">239</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a> <span class="dv">4</span> Arizona              <span class="dv">11934</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a> <span class="dv">5</span> Arkansas             <span class="dv">59032</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a> <span class="dv">6</span> California           <span class="dv">45693</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a> <span class="dv">7</span> Colorado             <span class="dv">49527</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a> <span class="dv">8</span> Connecticut           <span class="dv">7091</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a> <span class="dv">9</span> Delaware              <span class="dv">3131</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a><span class="dv">10</span> District of Columbia   <span class="dv">798</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a><span class="co"># … with 46 more rows</span></span></code></pre></div>
+<p>This shows that there are a total of 56 states/territories covered here. <code>count</code> is a function from the library <code>dplyr</code>, part of core Tidyverse. The pipe (<code>%&gt;%</code>) is not part of tidyverse; it comes from a package named <code>magritter</code> which is a dependency for tidyverse.</p>
+<p>Note how a tibble always displays the first few rows by default. In this particular case, if you wanted to print all 56 rows, what would you do?</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(state) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">56</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="co"># A tibble: 56 × 2</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>   state                         n</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                     </span><span class="er">&lt;</span>int<span class="op">&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> Alabama                   <span class="dv">52312</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a> <span class="dv">2</span> Alaska                    <span class="dv">20568</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a> <span class="dv">3</span> American Samoa              <span class="dv">239</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a> <span class="dv">4</span> Arizona                   <span class="dv">11934</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a> <span class="dv">5</span> Arkansas                  <span class="dv">59032</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a> <span class="dv">6</span> California                <span class="dv">45693</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a> <span class="dv">7</span> Colorado                  <span class="dv">49527</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a> <span class="dv">8</span> Connecticut                <span class="dv">7091</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a> <span class="dv">9</span> Delaware                   <span class="dv">3131</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a><span class="dv">10</span> District of Columbia        <span class="dv">798</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a><span class="dv">11</span> Florida                   <span class="dv">53362</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a><span class="dv">12</span> Georgia                  <span class="dv">124889</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a><span class="dv">13</span> Guam                        <span class="dv">790</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a><span class="dv">14</span> Hawaii                     <span class="dv">3982</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a><span class="dv">15</span> Idaho                     <span class="dv">33184</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a><span class="dv">16</span> Illinois                  <span class="dv">79502</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true"></a><span class="dv">17</span> Indiana                   <span class="dv">71921</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true"></a><span class="dv">18</span> Iowa                      <span class="dv">77070</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true"></a><span class="dv">19</span> Kansas                    <span class="dv">79294</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true"></a><span class="dv">20</span> Kentucky                  <span class="dv">92572</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true"></a><span class="dv">21</span> Louisiana                 <span class="dv">50902</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true"></a><span class="dv">22</span> Maine                     <span class="dv">13097</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true"></a><span class="dv">23</span> Maryland                  <span class="dv">19645</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true"></a><span class="dv">24</span> Massachusetts             <span class="dv">11914</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true"></a><span class="dv">25</span> Michigan                  <span class="dv">65202</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true"></a><span class="dv">26</span> Minnesota                 <span class="dv">67883</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true"></a><span class="dv">27</span> Mississippi               <span class="dv">64147</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true"></a><span class="dv">28</span> Missouri                  <span class="dv">89600</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true"></a><span class="dv">29</span> Montana                   <span class="dv">40656</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true"></a><span class="dv">30</span> Nebraska                  <span class="dv">69255</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true"></a><span class="dv">31</span> Nevada                    <span class="dv">12867</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true"></a><span class="dv">32</span> New Hampshire              <span class="dv">8612</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true"></a><span class="dv">33</span> New Jersey                <span class="dv">17417</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true"></a><span class="dv">34</span> New Mexico                <span class="dv">25445</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true"></a><span class="dv">35</span> New York                  <span class="dv">45692</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true"></a><span class="dv">36</span> North Carolina            <span class="dv">77809</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true"></a><span class="dv">37</span> North Dakota              <span class="dv">40499</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true"></a><span class="dv">38</span> Northern Mariana Islands   <span class="dv">1832</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true"></a><span class="dv">39</span> Ohio                      <span class="dv">69101</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true"></a><span class="dv">40</span> Oklahoma                  <span class="dv">59923</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true"></a><span class="dv">41</span> Oregon                    <span class="dv">27784</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true"></a><span class="dv">42</span> Pennsylvania              <span class="dv">52441</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true"></a><span class="dv">43</span> Puerto Rico               <span class="dv">58397</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true"></a><span class="dv">44</span> Rhode Island               <span class="dv">4704</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true"></a><span class="dv">45</span> South Carolina            <span class="dv">36091</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true"></a><span class="dv">46</span> South Dakota              <span class="dv">49552</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true"></a><span class="dv">47</span> Tennessee                 <span class="dv">74719</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true"></a><span class="dv">48</span> Texas                    <span class="dv">193519</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true"></a><span class="dv">49</span> Utah                      <span class="dv">22919</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true"></a><span class="dv">50</span> Vermont                   <span class="dv">11758</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true"></a><span class="dv">51</span> Virgin Islands             <span class="dv">2492</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true"></a><span class="dv">52</span> Virginia                 <span class="dv">103128</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true"></a><span class="dv">53</span> Washington                <span class="dv">30893</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true"></a><span class="dv">54</span> West Virginia             <span class="dv">42238</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true"></a><span class="dv">55</span> Wisconsin                 <span class="dv">55993</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true"></a><span class="dv">56</span> Wyoming                   <span class="dv">17815</span></span></code></pre></div>
+<p><Br><br></p>
+<h3 id="accessing-specific-data-from-tibbles">3.2 Accessing Specific Data From Tibbles</h3>
+<ul>
+<li>Let’s say we wish to access data from Nevada.</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;Nevada&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co"># A tibble: 12,867 × 6</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>   date       county state  fips  cases deaths</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-03-05</span> Clark  Nevada <span class="dv">32003</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-03-05</span> Washoe Nevada <span class="dv">32031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-03-06</span> Clark  Nevada <span class="dv">32003</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-03-06</span> Washoe Nevada <span class="dv">32031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-03-07</span> Clark  Nevada <span class="dv">32003</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-03-07</span> Washoe Nevada <span class="dv">32031</span>     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-03-08</span> Clark  Nevada <span class="dv">32003</span>     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-03-08</span> Washoe Nevada <span class="dv">32031</span>     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-03-09</span> Clark  Nevada <span class="dv">32003</span>     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-03-09</span> Washoe Nevada <span class="dv">32031</span>     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a><span class="co"># … with 12,857 more rows</span></span></code></pre></div>
+<ul>
+<li>What if you want to print 20 rows of data from Nevada?</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;Nevada&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">20</span>)</span></code></pre></div>
+<p>Try the same command on any other state or territory:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;Puerto Rico&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">n=</span><span class="dv">20</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="co"># A tibble: 58,397 × 6</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>   date       county  state       fips  cases deaths</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-03-13</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">3</span>      <span class="dv">0</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-03-14</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">4</span>      <span class="dv">0</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-03-15</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">5</span>      <span class="dv">0</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-03-16</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">5</span>      <span class="dv">0</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-03-17</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">5</span>      <span class="dv">0</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-03-18</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">5</span>      <span class="dv">0</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-03-19</span> Unknown Puerto Rico <span class="ot">NA</span>        <span class="dv">6</span>      <span class="dv">0</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-03-20</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">14</span>      <span class="dv">0</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-03-21</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">21</span>      <span class="dv">1</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-03-22</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">23</span>      <span class="dv">1</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a><span class="dv">11</span> <span class="dv">2020-03-23</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">31</span>      <span class="dv">2</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a><span class="dv">12</span> <span class="dv">2020-03-24</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">39</span>      <span class="dv">2</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a><span class="dv">13</span> <span class="dv">2020-03-25</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">51</span>      <span class="dv">2</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a><span class="dv">14</span> <span class="dv">2020-03-26</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">64</span>      <span class="dv">2</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a><span class="dv">15</span> <span class="dv">2020-03-27</span> Unknown Puerto Rico <span class="ot">NA</span>       <span class="dv">79</span>      <span class="dv">3</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a><span class="dv">16</span> <span class="dv">2020-03-28</span> Unknown Puerto Rico <span class="ot">NA</span>      <span class="dv">100</span>      <span class="dv">3</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a><span class="dv">17</span> <span class="dv">2020-03-29</span> Unknown Puerto Rico <span class="ot">NA</span>      <span class="dv">127</span>      <span class="dv">5</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a><span class="dv">18</span> <span class="dv">2020-03-30</span> Unknown Puerto Rico <span class="ot">NA</span>      <span class="dv">174</span>      <span class="dv">6</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a><span class="dv">19</span> <span class="dv">2020-03-31</span> Unknown Puerto Rico <span class="ot">NA</span>      <span class="dv">239</span>      <span class="dv">8</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a><span class="dv">20</span> <span class="dv">2020-04-01</span> Unknown Puerto Rico <span class="ot">NA</span>      <span class="dv">286</span>     <span class="dv">11</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true"></a><span class="co"># … with 58,377 more rows</span></span></code></pre></div>
+<ul>
+<li>What if you only want to print the following columns from Hawaii: date, state, county and cases?</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;Hawaii&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">6</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="co"># A tibble: 3,982 × 4</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>   date       county   cases deaths</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-03-06</span> Honolulu     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-03-07</span> Honolulu     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-03-08</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-03-09</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-03-10</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-03-11</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-03-12</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-03-13</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-03-14</span> Honolulu     <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-03-14</span> Kauai        <span class="dv">2</span>      <span class="dv">0</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a><span class="co"># … with 3,972 more rows</span></span></code></pre></div>
+<ul>
+<li>Notice that we used column numbers above instead of their names. But of course, you could achieve the same result using names:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;Hawaii&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="st">&quot;date&quot;</span>, <span class="st">&quot;county&quot;</span>, <span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Repeat the last command with California:</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="st">&quot;date&quot;</span>, <span class="st">&quot;county&quot;</span>, <span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>) </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a><span class="co"># A tibble: 45,693 × 4</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>   date       county      cases deaths</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2020-01-25</span> Orange          <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2020-01-26</span> Los Angeles     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2020-01-26</span> Orange          <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2020-01-27</span> Los Angeles     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2020-01-27</span> Orange          <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2020-01-28</span> Los Angeles     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2020-01-28</span> Orange          <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2020-01-29</span> Los Angeles     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2020-01-29</span> Orange          <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2020-01-30</span> Los Angeles     <span class="dv">1</span>      <span class="dv">0</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true"></a><span class="co"># … with 45,683 more rows</span></span></code></pre></div>
+<ul>
+<li><p>California data consists of 45693 rows altogether.</p></li>
+<li><p>You have just used two new functions from the <code>dplyr</code> package. If you are curious about details of these functions, you can always look at the package help menu:</p></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>?filter</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>Help on topic ‘filter’ was found <span class="cf">in</span> the following packages<span class="op">:</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true"></a><span class="st">  </span>Package               Library</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true"></a>  dplyr                 <span class="op">/</span>Library<span class="op">/</span>Frameworks<span class="op">/</span>R.framework<span class="op">/</span>Versions<span class="op">/</span><span class="fl">4.0</span><span class="op">/</span>Resources<span class="op">/</span>library</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true"></a>  stats                 <span class="op">/</span>Library<span class="op">/</span>Frameworks<span class="op">/</span>R.framework<span class="op">/</span>Versions<span class="op">/</span><span class="fl">4.0</span><span class="op">/</span>Resources<span class="op">/</span>library</span></code></pre></div>
+<ul>
+<li>As you see above, sometimes same function names are used in multiple packages. To choose the correct one, be more explicit as follows:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a>?dplyr<span class="op">::</span>filter</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>?dplyr<span class="op">::</span>select</span></code></pre></div>
+<p><br><br></p>
+<h2 id="exploratory-visualization-with-ggplot">4 Exploratory Visualization with <code>ggplot</code></h2>
+<ul>
+<li>Pipes make it very easy to subset data and plot it on the fly without creating any additional objects. This functionality is rather useful when exploring the data.</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state<span class="op">==</span><span class="st">&quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="st">&quot;date&quot;</span>, <span class="st">&quot;state&quot;</span>, <span class="st">&quot;cases&quot;</span>, <span class="st">&quot;deaths&quot;</span>)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>cases))</span></code></pre></div>
+<center>
+<img src="california_cases.png" width=700> </img>
+</center>
+<ul>
+<li>Next, let’s plot the number of cases per county in California</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state <span class="op">==</span><span class="st"> &quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>fips, <span class="dt">y=</span>cases))</span></code></pre></div>
+<center>
+<img src="california_fipsXcases.png" width=700 />
+</center>
+<ul>
+<li>It seems that one of the counties has disproportionately higher number of cases. How would we find out what county that is?</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state <span class="op">==</span><span class="st"> &quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cases <span class="op">&gt;</span><span class="st"> </span><span class="fl">2e+06</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a><span class="co"># A tibble: 124 × 6</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>   date       county      state      fips    cases deaths</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2022-01-10</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2011668</span>  <span class="dv">27798</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2022-01-11</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2046912</span>  <span class="dv">27812</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2022-01-12</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2087285</span>  <span class="dv">27850</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2022-01-13</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2132227</span>  <span class="dv">27985</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2022-01-14</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2172712</span>  <span class="dv">27985</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2022-01-15</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2214368</span>  <span class="dv">28008</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2022-01-16</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2258206</span>  <span class="dv">28059</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2022-01-17</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2289749</span>  <span class="dv">28086</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2022-01-18</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2312272</span>  <span class="dv">28122</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2022-01-19</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2344525</span>  <span class="dv">28181</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true"></a><span class="co"># … with 114 more rows</span></span></code></pre></div>
+<ul>
+<li>What do the numbers look like for deaths?</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state <span class="op">==</span><span class="st"> &quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>fips, <span class="dt">y=</span>deaths))</span></code></pre></div>
+<center>
+<img src="california_deaths.png" width=700 />
+</center>
+<ul>
+<li>A quick eyeballing points likely to the same county for largest number of deaths. Just to verify:</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>ct <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state <span class="op">==</span><span class="st"> &quot;California&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(deaths <span class="op">&gt;</span><span class="st"> </span><span class="dv">30000</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a><span class="co"># A tibble: 87 × 6</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true"></a>   date       county      state      fips    cases deaths</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true"></a>   <span class="op">&lt;</span>date<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true"></a><span class="st"> </span><span class="dv">1</span> <span class="dv">2022-02-16</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2770076</span>  <span class="dv">30081</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true"></a> <span class="dv">2</span> <span class="dv">2022-02-17</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2773273</span>  <span class="dv">30146</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true"></a> <span class="dv">3</span> <span class="dv">2022-02-18</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2777869</span>  <span class="dv">30216</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true"></a> <span class="dv">4</span> <span class="dv">2022-02-19</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2781027</span>  <span class="dv">30300</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true"></a> <span class="dv">5</span> <span class="dv">2022-02-20</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2783657</span>  <span class="dv">30356</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true"></a> <span class="dv">6</span> <span class="dv">2022-02-21</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2784980</span>  <span class="dv">30376</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true"></a> <span class="dv">7</span> <span class="dv">2022-02-22</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2786153</span>  <span class="dv">30411</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true"></a> <span class="dv">8</span> <span class="dv">2022-02-23</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2788063</span>  <span class="dv">30447</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true"></a> <span class="dv">9</span> <span class="dv">2022-02-24</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2789996</span>  <span class="dv">30519</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true"></a><span class="dv">10</span> <span class="dv">2022-02-25</span> Los Angeles California <span class="dv">06037</span> <span class="dv">2792334</span>  <span class="dv">30587</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true"></a><span class="co"># … with 77 more rows</span></span></code></pre></div>
+<ul>
+<li>Now try to make the last two plots for your home state and find out which county had the highest number of cases and deaths. Report back county name and associated numbers. If California is your home stater, choose some other state.</li>
+</ul>
+<p><br><br></p>
+<h3 id="exercises">4.1 Exercises</h3>
+<ol type="1">
+<li><p>Access the <code>prisons/</code> directory within the NYT covid-19-data repository at github.com and import the <code>facilities.csv</code> data into R (store it as an object <code>fac</code>).</p></li>
+<li><p>How many rows and columns of data is present in the facilities data set?</p></li>
+<li><p>Use the pipe function to display only these columns: facility name, state, inmate cases, inmate deaths</p></li>
+<li><p>Count the total number of prison facilities.</p></li>
+<li><p>Count the number of facilities per state.</p></li>
+<li><p>Using the <code>fac_sub</code> tibble make a scatterplot of inmate cases vs inmate deaths in ggplot.</p></li>
+<li><p>Which state had the highest number of inmate cases or deaths?</p></li>
+</ol>
+<p><br><br></p>
+<h2 id="visualizing-data-on-maps">4.2 Visualizing Data on Maps</h2>
+<ul>
+<li><p>First install the following two packages:</p>
+<ul>
+<li><p><code>maps</code></p></li>
+<li><p><code>mapdata</code></p></li>
+</ul></li>
+<li><p>Load the packages</p></li>
+<li><p>Create base USA map object</p></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>usa &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&#39;usa&#39;</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a>states &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&#39;state&#39;</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>usa_base &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>states) <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y=</span>lat, <span class="dt">fill=</span><span class="kw">I</span>(<span class="st">&#39;white&#39;</span>), <span class="dt">group=</span>group), <span class="dt">color=</span><span class="st">&#39;gray&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(<span class="fl">1.3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<ul>
+<li>Print basic USA map to the screen</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>usa_base</span></code></pre></div>
+<center>
+<img src="usa_base.png" width=750 />
+</center>
+<ul>
+<li>Add locations of the prison facilities to the map</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>usa_base <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data=</span>fac, <span class="kw">aes</span>(<span class="dt">x=</span>facility_lng, <span class="dt">y=</span>facility_lat), <span class="dt">color=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">cex=</span><span class="fl">0.5</span>, <span class="dt">alpha=</span><span class="dv">3</span><span class="op">/</span><span class="dv">10</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">130</span>, <span class="dv">-60</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">50</span>), <span class="dt">ratio=</span><span class="fl">1.3</span>)</span></code></pre></div>
+<center>
+<img src="usa_prison_facs.png" width=750 />
+</center>
+</body>
+</html>

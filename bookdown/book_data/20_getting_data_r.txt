@@ -1,0 +1,41 @@
+Getting data and trees into R
+
+
+
+Tree classes
+
+
+The main tree class in R is phylo and is defined in the ape package. Let’s look at one in the wild:
+
+library(ape)
+phy <- ape::rcoal(5) #to make a random five taxon tree
+print(phy)
+
+
+
+str(phy)
+
+
+-------------
+
+Sequence data
+
+The BioConductor community has put a lot of effort into making R work with high throughput data, though python is still likely more popular (just remember that python 3.x is the only currently supported version – python 2.x should not be used any longer). The seqinr package has some useful functionality for handling sequences. ape and phangorn have functions for handling data, including reading FASTA and NEXUS files in ape.
+
+
+------------
+
+Phylogenies
+The most common way to load trees is to use ape’s functions:
+
+phy <- ape::read.tree(file='treefile.phy')
+
+
+You can use the same function to enter tree strings directly, changing the argument from the file containing the tree to text containing the tree string:
+
+
+phy <- ape::read.tree(text = '((Strix_aluco:4.2,Asio_otus:4.2):3.1,Athene_noctua:7.3);')
+
+
+
+

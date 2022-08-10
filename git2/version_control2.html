@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2021-06-29" />
+  <title>Version Control 2 - Collaborating on GitHub</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="avenir-white.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Version Control 2 - Collaborating on GitHub</h1>
+<p class="date">June 29, 2021</p>
+</header>
+<p><br><br></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><p><a href="#staying-current-with-a-remote-repository">1. Staying Current with a Remote Repository</a></p>
+<ul>
+<li><p><a href="#copying-or-cloning-a-repository">1.1 Copying or Cloning a Repository</a></p></li>
+<li><p><a href="#keeping-the-clone-current-with-upstream">1.2 Keeping the Clone Current with Upstream</a></p></li>
+</ul></li>
+<li><p><a href="#secure-communication-with-github">2. Secure Communication with GitHub</a></p>
+<ul>
+<li><a href="#configure-your-system-to-use-ssh-keys">2.1 Configure Your System to Use SSH Keys</a></li>
+</ul></li>
+<li><p><a href="#collaborating-on-github">3. Collaborating on GitHub</a></p>
+<ul>
+<li><p><a href="#bears-generate-new-repository-and-initial-content">3.1 <code>team1</code> Generate New Repository and Initial Content</a></p></li>
+<li><p><a href="#foxes-clone-repository-and-edit-it">3.2 <code>team2</code> Clone Repository and Edit it</a></p></li>
+<li><p><a href="#bears-pull-updates-and-add-to-the-repo">3.3 <code>team1</code> Pull Updates and Add to the Repo</a></p></li>
+<li><p><a href="#foxes-pull-updates">3.4 <code>team2</code> Pull Updates</a></p></li>
+</ul></li>
+</ul>
+<p><br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br></p>
+<h2 id="staying-current-with-a-remote-repository">1. Staying Current with a Remote Repository</h2>
+<p>The official repository for this workshop is located at <a href="https://github.com/wyoibc/rds22">https://github.com/wyoibc/rds22</a>. Now that you have started following its contents, it makes sense to (1) have a copy of it on your computer, and (2) learn how to keep your copy current with what is upstream (i.e. on GitHub). If you were to copy this repository right now, you will have the most current version of it. But once I make any changes to the upstream, your copy will become slightly stale. In this section, we will learn how to make it current again.</p>
+<h3 id="copying-or-cloning-a-repository">1.1 Copying or Cloning a Repository</h3>
+<ul>
+<li>Using the following command in your terminal session, clones the remote repository to the current location. So be sure to navigate within your terminal to a place where you wish to make a copy.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="bu">cd</span> ~/Github</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">git</span> clone https://github.com/wyoibc/rds22</span></code></pre></div>
+<p><br></p>
+<h3 id="keeping-the-clone-current-with-upstream">1.2 Keeping the Clone Current with Upstream</h3>
+<ul>
+<li>You don’t have to know if the remote has changed; git will do that for you. The following command will allow git to check your copy against the remote. If they are different, git will download updates and merge them with your copy. If they are identical, git will tell you so and it won’t make any changes.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">git</span> pull</span></code></pre></div>
+<ul>
+<li>You can use <code>git pull</code> as often as you wish. For RDS22, it is probably sufficient to pull it once a week. If you begin working on a project that is being updated more frequently, then you will benefit from pulling more often.</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="secure-communication-with-github">2. Secure Communication with GitHub</h2>
+<p><br></p>
+<h3 id="configure-your-system-to-use-ssh-keys">2.1 Configure Your System to Use SSH Keys</h3>
+<ul>
+<li>First, make sure that <code>ssh-agent</code> is enabled on your system, and add your newly created ssh key to the agent. If you set up a passphrase earlier, you will need to enter it now.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ssh-agent</span> -s</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">ssh-add</span> /Users/wyoibc/.ssh/KEYNAME</span></code></pre></div>
+<ul>
+<li>Make sure that the ssh-agent is using your key.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ssh-add</span> -l</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">4096</span> SHA256:uMFoUIUC7osmgDQaNowsOnqEt3XmPPZe4RnR2+Q1KB0 name@host.edu (RSA)</span></code></pre></div>
+<ul>
+<li>Second, open the configuration file for ssh</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="bu">cd</span> /Users/wyoibc/.ssh</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="ex">vim</span> config</span></code></pre></div>
+<ul>
+<li>If this file doesn’t exist, you will be creating a new one. Add following lines to this file:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">Host</span> *</span>
+<span id="cb6-2"><a href="#cb6-2"></a>   <span class="ex">AddKeysToAgent</span> yes</span>
+<span id="cb6-3"><a href="#cb6-3"></a>   <span class="ex">UseKeychain</span> yes</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="ex">Host</span> wyoibc.github.com</span>
+<span id="cb6-6"><a href="#cb6-6"></a>        <span class="ex">HostName</span> github.com</span>
+<span id="cb6-7"><a href="#cb6-7"></a>        <span class="ex">User</span> git</span>
+<span id="cb6-8"><a href="#cb6-8"></a>        <span class="ex">PreferredAuthentications</span> publickey</span>
+<span id="cb6-9"><a href="#cb6-9"></a>        <span class="ex">IdentityFile</span> ~/.ssh/KEYNAME</span></code></pre></div>
+<ul>
+<li>Save and close the file.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a>:<span class="ex">wq</span></span></code></pre></div>
+<p><br><br><br></p>
+<h2 id="collaborating-on-github">3. Collaborating on GitHub</h2>
+<ul>
+<li><p>One of the advantages of putting your work on GitHub is that it makes collaborating with others very easy. For this section, you will find a partner to collaborate with.</p>
+<ul>
+<li><p>Share your GitHub user name with your partner.</p></li>
+<li><p>One of you will be part of <code>team1</code> team and the other of <code>team2</code> team.</p></li>
+</ul></li>
+</ul>
+<h3 id="team1-generate-new-repository-and-initial-content">3.1 <code>team1</code> Generate New Repository and Initial Content</h3>
+<ul>
+<li><p><code>team1</code> do the following:</p>
+<ul>
+<li><p>Go to <code>Github.com/YOUR_USER_ID</code> and create a new repository called <code>collab</code></p></li>
+<li><p>On your local computer, create a new folder <code>collab</code> inside the <code>GitHub</code> folder you created last week.</p></li>
+<li><p>Inside this folder, open a new file in <code>vim</code> named <code>README.md</code></p></li>
+<li><p>Type following content in this file:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">---</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="ex">title</span>: Collaborative Exercise in Github</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="ex">---</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## QQ Normalization</span></span></code></pre></div></li>
+<li><p>Save and close the file (<code>:wq</code> in vim).</p></li>
+<li><p>Initialize new git repository inside <code>collab</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">git</span> init</span></code></pre></div></li>
+<li><p>Configure the repository</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">git</span> config user.name <span class="st">&quot;YOUR_USER_NAME&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">git</span> config user.email <span class="st">&quot;YOUR_GITHUB_EMAIL_ADDRESS&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">git</span> config --list</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="fu">git</span> remote add origin git@github.com:YOUR_GITHUB_USERNAME/collab.git</span></code></pre></div></li>
+<li><p>Add, commit and push files to your new repository</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">git</span> add .</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">git</span> commit -m <span class="st">&quot;Initial commit by team1&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">git</span> push -u origin master</span></code></pre></div></li>
+<li><p>If your SSH keys were correctly setup, the above should work without errors.</p></li>
+<li><p>If the <code>push</code> was successful, go to your new GitHub.com repository, choose <code>Settings</code> &gt;&gt; <code>Manage access</code> and invite your partner as a collaborator. You will need their user name.</p></li>
+</ul></li>
+</ul>
+<p><br><br></p>
+<h3 id="team2-clone-repository-and-edit-it">3.2 <code>team2</code> Clone Repository and Edit it</h3>
+<ul>
+<li><p><code>team2</code> do the following:</p>
+<ul>
+<li><p>You should have received an email from GitHub containing invitation from your <code>team1</code> partner to collaborate on the above repository. Go ahead and accept it.</p></li>
+<li><p>Inside your terminal session, go to the <code>Github</code> folder you created last week.</p></li>
+<li><p>Clone the collaborative repository inside this folder</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="bu">cd</span> ~/Github</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">git</span> clone https://github.com/PARTNERS_GITHUB_ID/collab.git</span></code></pre></div></li>
+<li><p>Open the <code>README.md</code> file in vim and set it aside for now. We are going to generate some new content for the repo.</p></li>
+<li><p>Fire up a new <code>R</code> session, either inside your terminal or in R-Studio.</p></li>
+<li><p>Generate normal distribution of <code>length=100</code>, <code>mean=5</code> and <code>STDEV=2</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>rnorm_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>rnorm_<span class="dv">100</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  [<span class="dv">1</span>]  <span class="fl">3.2560410</span>  <span class="fl">3.9427234</span>  <span class="fl">6.5062322</span>  <span class="fl">2.6120940</span>  <span class="fl">8.4469923</span>  <span class="fl">3.7734777</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  [<span class="dv">7</span>]  <span class="fl">6.6660813</span>  <span class="fl">6.7297231</span>  <span class="fl">7.6356562</span>  <span class="fl">1.2795508</span>  <span class="fl">8.7135774</span>  <span class="fl">4.7808433</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a> [<span class="dv">13</span>]  <span class="fl">3.2431209</span>  <span class="fl">4.5544523</span>  <span class="fl">8.0560542</span>  <span class="fl">5.1345238</span>  <span class="fl">4.5290398</span>  <span class="fl">3.0709138</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a> [<span class="dv">19</span>]  <span class="fl">4.9424754</span>  <span class="fl">4.9901400</span>  <span class="fl">4.8403945</span>  <span class="fl">4.7744570</span>  <span class="fl">4.9741091</span>  <span class="fl">8.5158795</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a> [<span class="dv">25</span>]  <span class="fl">6.7576175</span>  <span class="fl">3.1544909</span>  <span class="fl">5.1043582</span>  <span class="fl">7.2520960</span>  <span class="fl">4.7162988</span>  <span class="fl">5.2154195</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a> [<span class="dv">31</span>]  <span class="fl">5.6096246</span>  <span class="fl">7.2431140</span>  <span class="fl">5.3628224</span>  <span class="fl">7.0183478</span>  <span class="fl">3.0525487</span>  <span class="fl">5.7969017</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a> [<span class="dv">37</span>] <span class="fl">-0.2473231</span>  <span class="fl">5.4314736</span>  <span class="fl">2.9819134</span>  <span class="fl">5.6517750</span>  <span class="fl">5.1031163</span>  <span class="fl">5.2758484</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a> [<span class="dv">43</span>]  <span class="fl">3.9986785</span>  <span class="fl">3.6546439</span>  <span class="fl">1.0277276</span>  <span class="fl">8.2698047</span>  <span class="fl">2.9370657</span>  <span class="fl">3.8312321</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a> [<span class="dv">49</span>]  <span class="fl">5.1891104</span> <span class="fl">-1.1718007</span>  <span class="fl">2.9092251</span>  <span class="fl">9.6024601</span>  <span class="fl">0.3102288</span>  <span class="fl">3.5233113</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a> [<span class="dv">55</span>]  <span class="fl">6.0785879</span>  <span class="fl">6.1443481</span>  <span class="fl">1.4895122</span>  <span class="fl">4.1123315</span>  <span class="fl">4.4962461</span>  <span class="fl">7.6709961</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a> [<span class="dv">61</span>]  <span class="fl">5.7954681</span>  <span class="fl">3.2487014</span>  <span class="fl">2.9246425</span>  <span class="fl">4.4178842</span>  <span class="fl">5.1267737</span>  <span class="fl">2.0772663</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a> [<span class="dv">67</span>]  <span class="fl">5.7256326</span>  <span class="fl">2.4347005</span>  <span class="fl">3.4792939</span>  <span class="fl">8.6661506</span>  <span class="fl">2.3007794</span>  <span class="fl">1.2865652</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a> [<span class="dv">73</span>] <span class="fl">10.2528413</span>  <span class="fl">6.5529408</span>  <span class="fl">4.5308639</span>  <span class="fl">3.9096317</span>  <span class="fl">2.9602922</span>  <span class="fl">4.5660157</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a> [<span class="dv">79</span>]  <span class="fl">6.4765327</span>  <span class="fl">5.4774428</span>  <span class="fl">9.5770346</span>  <span class="fl">4.8439801</span>  <span class="fl">7.2007534</span>  <span class="fl">3.9652323</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a> [<span class="dv">85</span>]  <span class="fl">6.1064564</span>  <span class="fl">4.3177799</span>  <span class="fl">3.5924463</span>  <span class="fl">4.9280261</span>  <span class="fl">6.4032782</span>  <span class="fl">5.2160964</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a> [<span class="dv">91</span>]  <span class="fl">4.2959516</span>  <span class="fl">3.9489019</span>  <span class="fl">3.6501318</span>  <span class="fl">4.2419236</span>  <span class="fl">7.3105085</span>  <span class="fl">6.8059605</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a> [<span class="dv">97</span>]  <span class="fl">3.8606476</span>  <span class="fl">3.3618475</span>  <span class="fl">4.1134365</span>  <span class="fl">1.7566958</span></span></code></pre></div></li>
+<li><p>Test how closely this vector fits normal distribution using the <code>qqnorm</code> function in R</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">qqnorm</span>(rnorm_<span class="dv">100</span>)</span></code></pre></div></li>
+</ul></li>
+</ul>
+<center>
+<img src="images/rnorm_100.png" width=550 />
+</center>
+<ul>
+<li><p>Save this file as <code>rnorm_100.png</code> in the current folder.</p></li>
+<li><p>Now let’s go back to <code>README.md</code> and update its contents as follows:</p></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="ex">---</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="ex">title</span>: Collaborative Exercise in Github</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="ex">---</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">## QQ Normalization</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="ex">-</span> Normalizatio using rnorm 100 sampling</span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="op">&lt;</span><span class="ex">center</span><span class="op">&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="op">&lt;</span><span class="ex">img</span> src=<span class="st">&quot;qqnorm_100.png&quot;</span>, width=500 /<span class="op">&gt;</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="op">&lt;</span>/<span class="ex">center</span><span class="op">&gt;</span></span></code></pre></div>
+<ul>
+<li>Save and close the file. Then perform git operations as follows:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">git</span> add .</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">git</span> commit -m <span class="st">&quot;Edit by YOUR_GITHUB_USERNAME&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">git</span> push origin master</span></code></pre></div>
+<ul>
+<li>Verify that the contents were uploaded to your partner’s Github repository (on which you are a collaborator).</li>
+</ul>
+<p><br><br></p>
+<h3 id="team1-pull-updates-and-add-to-the-repo">3.3 <code>team1</code> Pull Updates and Add to the Repo</h3>
+<ul>
+<li><p><code>team1</code> do the following:</p>
+<ul>
+<li><p>Perform <code>git pull</code> inside collab to bring your local version up to date with changes present upstream</p></li>
+<li><p>We will now update the <code>README.md</code> again by expanding the normal distribution from 100 to 1000 and 5000 respectively.</p></li>
+<li><p>Fire up your <code>R</code> session:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>rnorm_1k &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>rnorm_5k &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="kw">qqnorm</span>(rnorm_1k)</span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="kw">qqnorm</span>(rnorm_5k)</span></code></pre></div></li>
+<li><p>Update the <code>README.md</code> to include these two new figures</p></li>
+</ul></li>
+</ul>
+<center>
+<img src="images/rnorm_1k.png" width=550 />
+</center>
+<p><br><br></p>
+<center>
+<img src="images/rnorm_5k.png" width=550 />
+</center>
+<pre><code>- Finally, push the updates upstream with ``git add``, ``git commit`` and ``git push``</code></pre>
+<p><br><br></p>
+<h3 id="team2-pull-updates">3.4 <code>team2</code> Pull Updates</h3>
+<ul>
+<li>In the culmination of this exercises, <code>team2</code> will use <code>git pull</code> to update their local repository with the changes that were made by ``team2. After this operation, open the README file to make sure you got all the changes. You won’t see figures inside README, but they should be present in the folder.</li>
+</ul>
+</body>
+</html>
